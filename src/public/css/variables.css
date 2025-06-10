@@ -1,0 +1,10 @@
+:root {
+  --color-light: #f0f0f0;
+  --color-dark: #191919;
+  --color-primary: #6e4926;
+  --color-secondary: #425253;
+
+  --font-edda: 'IM Fell Double Pica SC', serif;
+  --font-body: 'IBM Plex Sans', serif;
+  --font-english: 'IM Fell English SC', serif;
+}

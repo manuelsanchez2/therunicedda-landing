@@ -1,12 +1,23 @@
 <header>
-    <div>
-        <a href="/">Mi sitio con
-            <i>Eleventy</i>
-        </a>
-        <nav class="menu">
-            <a href="/">Inicio</a>
-        </li>
-        <a href="/acerca">Acerca</a>
-        <a href="/blog">Blog</a>
-    </nav>
-</div></header>
+    <style>
+        header {
+            position: fixed;
+            top: 2%;
+            right: 2%;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            justify-content: end;
+            font-family: var(--font-edda);
+        }
+        header img {
+            width: 18px;
+            height: 18px;
+            aspect-ratio: 1 / 1;
+            image-rendering: pixelated;
+        }
+    </style>
+    <img aria-hidden="true" src="/assets/img/coin.png" alt=""/>
+    <span>{{ resources.amount }}</span>
+    <span class="sr-only">$ invested</span>
+</header>

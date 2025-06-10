@@ -4,74 +4,72 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>The Runic Edda</title>
-        <meta name="description" content="Este es un starter project para gestionar y desplegar proyectos web minimalistas con Eleventy 3 y Github Pages.">
-        <link rel="icon" href="/therunicedda/img/favicon.png">
+        <meta name="description" content="More information coming soon!">
+        <link rel="shortcut icon" href="/therunicedda-landing/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css">
-        <link rel="stylesheet" href="/therunicedda/css/main.css">
+        <link rel="stylesheet" href="/therunicedda-landing/css/main.css">
     </head>
     <body>
         <header>
-    <div>
-        <a href="/therunicedda/">Mi sitio con
-            <i>Eleventy</i>
-        </a>
-        <nav class="menu">
-            <a href="/therunicedda/">Inicio</a>
-        
-        <a href="/therunicedda/acerca">Acerca</a>
-        <a href="/therunicedda/blog">Blog</a>
-    </nav>
-</div></header>
+    <style>
+        header {
+            position: fixed;
+            top: 2%;
+            right: 2%;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            justify-content: end;
+            font-family: var(--font-edda);
+        }
+        header img {
+            width: 18px;
+            height: 18px;
+            aspect-ratio: 1 / 1;
+            image-rendering: pixelated;
+        }
+    </style>
+    <img aria-hidden="true" src="/therunicedda-landing/assets/img/coin.png" alt="">
+    <span>1200</span>
+    <span class="sr-only">$ invested</span>
+</header>
         <main>
             
-<div>
+<div class="container container--center text-center">
   <h1 id="the-runic-edda">The Runic Edda</h1>
-  <p>Este es un starter project para gestionar y desplegar proyectos web minimalistas con Eleventy 3 y Github Pages.</p>
+  <p>More information coming soon!</p>
+
+  <section aria-label="Characters" class="edda-characters">
+    <div class="grid">
+      <!-- Character - Eytran  -->
+      <article class="edda-character">
+        <figure class="edda-figure">
+          <img aria-hidden="true" width="128" height="128" src="/therunicedda-landing/assets/img/eytran.webp" alt="">
+        </figure>
+        <span>Eytran</span>
+      </article>
+      <!-- Character - Yrsa  -->
+      <article class="edda-character">
+        <figure class="edda-figure">
+          <img aria-hidden="true" width="128" height="128" src="/therunicedda-landing/assets/img/yrsa.webp" alt="">
+        </figure>
+        <span>Yrsa</span>
+      </article>
+      <!-- Character - ???  -->
+      <article class="edda-character">
+        <figure class="edda-figure">
+          <img aria-hidden="true" width="128" height="128" src="/therunicedda-landing/assets/img/unknown.webp" alt="">
+        </figure>
+        <span>???</span>
+      </article>
+    </div>
+  </section>
 </div>
-<article class="box-message">
-  <ol>
-    <li>
-      <p>
-        Edita <b><i>_data/metadata.js</i></b> con la información de tu proyecto
-        y modifica la propiedad <b><i>pathPrefix</i></b>, con el nombre de tu repositorio en <i>GitHub</i>.
-      </p>
-    </li>
-    <li>
-      <p>
-        Asegura que tu repositorio tenga activado
-        <b><i>GitHub Pages</i></b> en la rama <b><i>main</i></b>, para desplegar la carpeta <b><i>docs</i></b>.
-      </p>
-    </li>
-    <li>
-      <p>
-        Opcionalmente, edita <b><i>eleventy.config.js</i></b> con tus
-        preferencias de configuración.
-      </p>
-    </li>
-    <li>
-      <p>Más información en la sección <a href="/therunicedda/acerca">Acerca</a>.</p>
-    </li>
-  </ol>
-</article>
-<div class="flex-center">
-  <img src="/therunicedda/img/eleventy.svg" alt="Eleventy Logo">
-  <img src="/therunicedda/img/eleventy.avif" alt="Elle la mascota de Eleventy">
-  <img src="/therunicedda/img/github.svg" alt="Github Logo">
-</div>
+
         </main>
         <footer>
-    <div>
-        🎈🦡
-        <small>Sitio hecho con
-            <a href="https://www.11ty.dev/" target="_blank">
-                <b>
-                    <i>Eleventy v3.1.1</i>
-                </b>
-            </a>
-        </small>
-        🦡🎈
-    </div>
+    
 </footer>
-        <script src="/therunicedda/js/main.js" type="module"></script>
+        <script src="/therunicedda-landing/js/main.js" type="module"></script>
     </body>
 </html>
