@@ -1,6 +1,6 @@
 import { EleventyHtmlBasePlugin, IdAttributePlugin } from '@11ty/eleventy'
 import syntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight'
-// import metadata from './src/_data/metadata.js'
+import metadata from './src/_data/metadata.js'
 
 export default async function (eleventyConfig) {
   eleventyConfig.setInputDirectory('src')
@@ -16,7 +16,7 @@ export default async function (eleventyConfig) {
 }
 
 export const config = {
-  //   pathPrefix: metadata.pathPrefix,
+  pathPrefix: metadata.pathPrefix,
   markdownTemplateEngine: 'njk',
   htmlTemplateEngine: 'njk',
 }
