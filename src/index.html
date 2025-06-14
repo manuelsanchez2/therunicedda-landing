@@ -10,47 +10,26 @@ date: '2025-06-10'
   <h1>{{title}}</h1>
   <p>{{description}}</p>
 
-  <section aria-label="Characters" class="edda-characters">
-    <div class="grid">
-      <!-- Character - Eytran  -->
-      <article class="edda-character">
-        <figure class="edda-figure">
-          <img
-            aria-hidden="true"
-            width="128"
-            height="128"
-            src="/assets/img/eytran.webp"
-            alt=""
-          />
-        </figure>
-        <span>Eytran</span>
-      </article>
-      <!-- Character - Yrsa  -->
-      <article class="edda-character">
-        <figure class="edda-figure">
-          <img
-            aria-hidden="true"
-            width="128"
-            height="128"
-            src="/assets/img/yrsa.webp"
-            alt=""
-          />
-        </figure>
-        <span>Yrsa</span>
-      </article>
-      <!-- Character - ???  -->
-      <article class="edda-character">
-        <figure class="edda-figure">
-          <img
-            aria-hidden="true"
-            width="128"
-            height="128"
-            src="/assets/img/unknown.webp"
-            alt=""
-          />
-        </figure>
-        <span>???</span>
-      </article>
-    </div>
-  </section>
+ {% if characters.length %}
+    <section aria-label="Characters" class="edda-characters">
+      <div class="grid">
+        {% for character in characters %}
+          <article class="edda-character">
+            <figure class="edda-figure">
+              <img
+                aria-hidden="true"
+                width="128"
+                height="128"
+                src="{{ character.fileUrl }}"
+                alt="Portrait of {{ character.name }}"
+              />
+            </figure>
+            <span>{{ character.name }}</span>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+  {% else %}
+    <p>No characters found.</p>
+  {% endif %}
 </div>
