@@ -1,10 +1,18 @@
 import { Client } from '@notionhq/client'
 import Fetch from '@11ty/eleventy-fetch'
 import 'dotenv/config'
+import { promisify } from 'util'
+import { pipeline } from 'stream'
+import fs from 'fs'
+import path from 'path'
+import got from 'got'
+import metadata from './metadata.js'
 
 const notion = new Client({
   auth: process.env.NOTION_SECRET || 'your-fallback-key-here',
 })
+
+const streamPipeline = promisify(pipeline)
 
 export default async function () {
   return Fetch(
@@ -13,30 +21,41 @@ export default async function () {
         database_id: process.env.DATABASE_ID,
       })
 
-      const characters = results.map((entry) => {
-        const props = entry.properties
+      // console.log('Fetched results from Notion:', results)
 
-        const id = props['Id']?.number || 0
-        const name = props['Name']?.title?.[0]?.plain_text || ''
-        const origin = props['Origin']?.select?.name || ''
-        const description =
-          props['Description']?.rich_text?.[0]?.plain_text || ''
+      const visibleCharacters = await Promise.all(
+        results
+          .filter((entry) => entry.properties['show']?.checkbox === true)
+          .map(async (entry) => {
+            const props = entry.properties
 
-        const fileObj = props['Files & media']?.files?.[0]
-        const fileUrl = fileObj?.file?.url || fileObj?.external?.url || ''
+            const id = props['id']?.number || 0
+            const name = props['name']?.title?.[0]?.plain_text || ''
+            const origin = props['origin']?.select?.name || ''
+            const description =
+              props['description']?.rich_text?.[0]?.plain_text || ''
 
-        return {
-          id,
-          name,
-          origin,
-          description,
-          fileUrl,
-        }
-      })
+            const fileObj = props['img']?.files?.[0]
+            const fileUrl = fileObj?.file?.url || fileObj?.external?.url || ''
 
-      characters.sort((a, b) => a.id - b.id)
+            const filename = `character-${id}.png`
+            const localImagePath = fileUrl
+              ? await downloadImage(fileUrl, filename)
+              : ''
 
-      return characters
+            return {
+              id,
+              name,
+              origin,
+              description,
+              fileUrl: localImagePath,
+            }
+          })
+      )
+
+      visibleCharacters.sort((a, b) => a.id - b.id)
+
+      return visibleCharacters
     },
     {
       requestId: 'notion_characters',
@@ -45,4 +64,29 @@ export default async function () {
       verbose: true,
     }
   )
+}
+
+/**
+ * Downloads and caches an image from a remote URL into /public/images
+ * @param {string} url - Remote image URL
+ * @param {string} filename - Local filename (e.g. "character-1.png")
+ * @returns {Promise<string>} - Public path to the downloaded image
+ */
+async function downloadImage(url, filename) {
+  const publicDir = path.resolve('./src/public/assets/img')
+  if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir, { recursive: true })
+
+  const filePath = path.join(publicDir, filename)
+  if (!fs.existsSync(filePath)) {
+    try {
+      await streamPipeline(got.stream(url), fs.createWriteStream(filePath))
+      console.log(`Downloaded image: ${filename}`)
+    } catch (err) {
+      console.error(`Failed to download ${filename}:`, err.message)
+    }
+  }
+
+  const rightPath = `./${metadata.pathPrefix}/assets/img/${filename}`
+
+  return rightPath
 }
