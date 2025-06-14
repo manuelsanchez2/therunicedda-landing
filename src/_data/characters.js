@@ -42,6 +42,8 @@ export default async function () {
               ? await downloadImage(fileUrl, filename)
               : ''
 
+            console.log('localImagePath:', localImagePath)
+
             return {
               id,
               name,
