@@ -6,7 +6,6 @@ import { pipeline } from 'stream'
 import fs from 'fs'
 import path from 'path'
 import got from 'got'
-import metadata from './metadata.js'
 
 const notion = new Client({
   auth: process.env.NOTION_SECRET || 'your-fallback-key-here',
@@ -67,7 +66,7 @@ export default async function () {
 }
 
 /**
- * Downloads and caches an image from a remote URL into /public/images
+ * Downloads and caches an image from a remote URL into /public/assets/img
  * @param {string} url - Remote image URL
  * @param {string} filename - Local filename (e.g. "character-1.png")
  * @returns {Promise<string>} - Public path to the downloaded image
@@ -86,7 +85,6 @@ async function downloadImage(url, filename) {
     }
   }
 
-  const rightPath = `./${metadata.pathPrefix}/assets/img/${filename}`
-
-  return rightPath
+  // ✅ This ensures the correct URL path for both local and production
+  return `/assets/img/${filename}`
 }
