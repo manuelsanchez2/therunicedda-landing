@@ -3,8 +3,10 @@
   --color-dark: #191919;
   --color-primary: #6e4926;
   --color-secondary: #425253;
+  --color-secondary-rgba-80: rgba(66, 82, 83, 0.8);
+  --color-secondary-rgba-100: rgba(66, 82, 83, 1);
 
-  --font-edda: 'IM Fell Double Pica SC', serif;
-  --font-body: 'IBM Plex Sans', serif;
-  --font-english: 'IM Fell English SC', serif;
+  --font-edda: "IM Fell Double Pica SC", serif;
+  --font-body: "IBM Plex Sans", serif;
+  --font-english: "IM Fell English SC", serif;
 }
