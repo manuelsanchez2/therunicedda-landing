@@ -31,51 +31,51 @@ export default async function () {
             const description =
               props["description"]?.rich_text?.[0]?.plain_text || ""
 
-            const fileObj = props["img"]?.files?.[0]
-            const fileUrl = fileObj?.file?.url || fileObj?.external?.url || ""
-
-            // Use name instead of id for image filename
             const safeName = name.toLowerCase().replace(/\s+/g, "-")
-            const filename = `${safeName}.png`
 
-            const localImagePath = fileUrl
-              ? await downloadImage(fileUrl, filename)
+            // Thumbnail image (overview)
+            const imgObj = props["img"]?.files?.[0]
+            const imgUrl = imgObj?.file?.url || imgObj?.external?.url || ""
+            const imgPath = imgUrl
+              ? await downloadImage(imgUrl, `${safeName}.png`)
               : ""
 
-            console.log("localImagePath:", localImagePath)
+            // Detail image (full view)
+            const imgDetailObj = props["img_detail"]?.files?.[0]
+            const imgDetailUrl =
+              imgDetailObj?.file?.url || imgDetailObj?.external?.url || ""
+            const imgDetailPath = imgDetailUrl
+              ? await downloadImage(imgDetailUrl, `${safeName}-detail.png`)
+              : ""
 
             return {
               name,
               origin,
               description,
-              fileUrl: localImagePath,
+              img: imgPath,
+              imgDetail: imgDetailPath,
             }
           })
       )
 
-      // Sort alphabetically by name for now
+      // Custom sort order
+      const priority = [
+        "eytran",
+        "braecen",
+        "godric",
+        "yrsa",
+        "torgil",
+        "orm",
+        "alfred",
+      ]
       visibleCharacters.sort((a, b) => {
-        const priority = [
-          "eytran",
-          "braecen",
-          "godric",
-          "yrsa",
-          "torgil",
-          "orm",
-          "alfred",
-        ]
-
         const aIndex = priority.indexOf(a.name.toLowerCase())
         const bIndex = priority.indexOf(b.name.toLowerCase())
 
-        // If one is in the priority list and the other is not
         if (aIndex !== -1 && bIndex === -1) return -1
         if (bIndex !== -1 && aIndex === -1) return 1
-
-        // If both are in the priority list, follow the array order
         if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex
 
-        // Otherwise, alphabetical order
         return a.name.localeCompare(b.name)
       })
 
@@ -90,12 +90,6 @@ export default async function () {
   )
 }
 
-/**
- * Downloads and caches an image from a remote URL into /public/assets/img
- * @param {string} url - Remote image URL
- * @param {string} filename - Local filename (e.g. "eytran.png")
- * @returns {Promise<string>} - Public path to the downloaded image
- */
 async function downloadImage(url, filename) {
   const publicDir = path.resolve("./src/public/assets/img")
   if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir, { recursive: true })
@@ -109,7 +103,5 @@ async function downloadImage(url, filename) {
       console.error(`Failed to download ${filename}:`, err.message)
     }
   }
-
-  // ✅ This ensures the correct URL path for both local and production
   return `/assets/img/${filename}`
 }
