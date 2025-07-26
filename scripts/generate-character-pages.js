@@ -13,6 +13,7 @@ const characters = [
     first_appear: "Prologue",
     description: "A simple monk living in Lindisfarne.",
     img: "eytran.png",
+    imgDetail: "eytran-detail.png",
   },
   {
     name: "Yrsa",
@@ -20,6 +21,7 @@ const characters = [
     first_appear: "Prologue",
     description: "A viking with a big heart and temperament.",
     img: "yrsa.png",
+    imgDetail: "yrsa-detail.png",
   },
   {
     name: "Braecen",
@@ -27,6 +29,7 @@ const characters = [
     first_appear: "Prologue",
     description: "Main monk of the group in Lindisfarne.",
     img: "braecen.png",
+    imgDetail: "braecen-detail.png",
   },
   {
     name: "Godric",
@@ -34,6 +37,7 @@ const characters = [
     first_appear: "Prologue",
     description: "Another monk living in Lindisfarne.",
     img: "godric.png",
+    imgDetail: "godric-detail.png",
   },
   {
     name: "Torgil",
@@ -41,6 +45,7 @@ const characters = [
     first_appear: "Prologue",
     description: "",
     img: "torgil.png",
+    imgDetail: "torgil-detail.png",
   },
   {
     name: "Orm",
@@ -48,6 +53,7 @@ const characters = [
     first_appear: "Prologue",
     description: "",
     img: "orm.png",
+    imgDetail: "orm-detail.png",
   },
   {
     name: "Alfred",
@@ -55,6 +61,23 @@ const characters = [
     first_appear: "Prologue",
     description: "",
     img: "alfred.png",
+    imgDetail: "alfred-detail.png",
+  },
+  {
+    name: "Soldier A",
+    origin: "Saxon",
+    first_appear: "Prologue",
+    description: "A soldier from the Saxon army.",
+    img: "soldier-a.png",
+    imgDetail: "soldier-a-detail.png",
+  },
+  {
+    name: "Soldier B",
+    origin: "Saxon",
+    first_appear: "Prologue",
+    description: "Another soldier from the Saxon army.",
+    img: "soldier-b.png",
+    imgDetail: "soldier-b-detail.png",
   },
 ]
 
@@ -82,6 +105,7 @@ function generateCharacterPages() {
         character.description || "No description yet."
       )
       .replace(/{ img }/g, character.img)
+      .replace(/{ img_detail }/g, character.imgDetail)
 
     const outputPath = join(
       __dirname,
