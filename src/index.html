@@ -1,13 +1,13 @@
 ---
 layout: layout-base.njk
 title: The Runic Edda
-description: More information coming soon!
+description: These are some of the characters of the adventure!
 tags: ['pages']
 date: '2025-06-10'
 ---
 
 <div class="container container--center text-center">
-  <h1 class="glow">{{title}}</h1>
+  <h1>{{title}}</h1>
   <p>{{description}}</p>
 
  {% if characters.length %}
@@ -15,15 +15,18 @@ date: '2025-06-10'
       <div class="grid">
         {% for character in characters %}
           <article class="edda-character">
-            <figure class="edda-figure">
-              <img
-                aria-hidden="true"
-                width="128"
-                height="128"
-                src="{{ character.fileUrl }}"
-                alt="Portrait of {{ character.name }}"
-              />
-            </figure>
+            <a href="/characters/{{ character.name | lower | replace(' ', '-') }}/">
+              <figure class="edda-figure">
+                <img
+                  aria-hidden="true"
+                  width="128"
+                  height="128"
+                  src="{{ character.img }}"
+                  alt="Portrait of {{ character.name }}"
+                  style="--vt: {{ character.name | lower | replace(' ', '-') }}"
+                />
+              </figure>
+            </a>
             <span>{{ character.name }}</span>
           </article>
         {% endfor %}

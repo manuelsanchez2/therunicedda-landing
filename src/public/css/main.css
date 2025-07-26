@@ -1,6 +1,7 @@
 @import "fonts.css";
 @import "utilities.css";
 @import "variables.css";
+@import "view-transitions.css";
 
 :root {
   --max-width: 800px;
@@ -24,6 +25,11 @@ body {
   font-size: 1.125rem;
   line-height: 1.6;
   padding-block: calc(3 * var(--space-m));
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 h1 {
@@ -63,15 +69,41 @@ figure {
   border-radius: 0.25rem;
   font-family: var(--font-edda);
   color: var(--color-primary);
-  background-color: var(--color-secondary);
+  background-color: var(--color-secondary-rgba-80);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+a:hover .edda-figure {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  background-color: var(--color-secondary-rgba-100);
+}
+
+.button {
+  background-color: var(--color-secondary);
+  color: var(--color-light) !important;
+  text-decoration: none;
+  border: none;
+  padding: calc(var(--space-m) / 2) var(--space-l);
+  border-radius: 0.25rem;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  margin-bottom: var(--space-m);
+  opacity: 0.8;
+  transition: opacity 0.2s, box-shadow 0.2s;
+}
+
+.button:hover {
+  opacity: 1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
 }

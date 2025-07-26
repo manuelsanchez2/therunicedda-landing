@@ -1,0 +1,201 @@
+:root {
+  --ease: cubic-bezier(0.12, 0, 0.39, 0);
+  --ease-out: cubic-bezier(0.61, 1, 0.88, 1);
+  --elastic-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+html::view-transition-group(*),
+html::view-transition-old(*),
+html::view-transition-new(*) {
+  animation-fill-mode: both !important;
+  animation-timing-function: var(--ease);
+}
+
+/* 1. Set view-transition names if user has no preference for reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  [style*="--vt"] {
+    view-transition-name: var(--vt);
+  }
+
+  /* Title, origin, first appear all animate as text */
+  .title {
+    view-transition-name: title;
+  }
+
+  .info {
+    view-transition-name: info;
+  }
+
+  /* .origin {
+    view-transition-name: origin;
+  }
+
+  .first-appear {
+    view-transition-name: first-appear;
+  }
+
+  .description {
+    view-transition-name: description;
+  } */
+
+  .large-titles .title,
+  /* .large-titles .origin,
+  .large-titles .first-appear,
+  .large-titles .description, */
+  .large-titles .info {
+    view-transition-class: text-animation;
+  }
+}
+
+/* Mask for text animation */
+&::view-transition-group(.text-animation) {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 15%,
+    black calc(100% - 15%),
+    transparent
+  );
+}
+
+/* Text animation transitions */
+&::view-transition-old(.text-animation),
+&::view-transition-new(.text-animation) {
+  animation-duration: 0.3s;
+}
+
+&::view-transition-new(.text-animation) {
+  animation-name: bottom-in;
+}
+
+&::view-transition-old(.text-animation) {
+  animation-name: top-out;
+}
+
+/* Disable root transitions during title animation */
+html:active-view-transition-type(title-animation) {
+  &::view-transition {
+    pointer-events: none;
+  }
+
+  &:root,
+  [style*="--vt"] {
+    view-transition-name: none !important;
+  }
+}
+
+/* Keyframes */
+@keyframes bottom-in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes top-out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+/* Enable view transitions */
+@view-transition {
+  navigation: auto;
+}
+
+/* Character card animations */
+html:active-view-transition-type(overview-to-character),
+html:active-view-transition-type(character-to-overview) {
+  &::view-transition-group(.character-card) {
+    animation-duration: 0.6s;
+  }
+
+  &::view-transition-old(.character-card),
+  &::view-transition-new(.character-card) {
+    animation: none;
+  }
+
+  &::view-transition-old(.character-card):only-child {
+    animation-name: scale-out;
+    animation-duration: 0.3s;
+    animation-delay: calc(var(--index) * 0.03s);
+  }
+
+  &::view-transition-new(.character-card):only-child {
+    animation-name: scale-in;
+    animation-duration: 0.3s;
+    animation-delay: calc(var(--index) * 0.03s + 0.35s);
+  }
+
+  &::view-transition-group(.text-animation) {
+    animation-delay: 0.3s;
+  }
+}
+
+/* Delay when going to character detail */
+html:active-view-transition-type(overview-to-character) {
+  &::view-transition-group(.character-card) {
+    animation-duration: 0.6s;
+    animation-delay: calc(var(--index) * 0.05s + 0.1s);
+  }
+
+  &::view-transition-old(.text-animation),
+  &::view-transition-new(.text-animation) {
+    animation: none;
+  }
+}
+
+/* Exceptions for going back to overview */
+html:active-view-transition-type(character-to-overview) {
+  --ease: var(--ease-out);
+}
+
+/* Other animations */
+@keyframes elastic-scale {
+  70% {
+    scale: 1.1 1;
+  }
+  100% {
+    scale: 1 1;
+  }
+}
+
+@keyframes elastic-feel-open {
+  70% {
+    transform: translateY(-1rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes elastic-feel-close {
+  70% {
+    transform: translateY(0.5rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-out {
+  to {
+    scale: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    scale: 0;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
