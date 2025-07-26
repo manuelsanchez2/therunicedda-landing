@@ -18,12 +18,18 @@
 
         <div class="character-detail-info">
           <div class="character-detail-text large-titles">
-            <h1 class="title xlarge-heading" id="character-name">{ character name }</h1>
+            <div style="display: flex; align-items: center; gap: 1rem;">
 
-            <div class="character-detail-image">
-              <img src="../../assets/img/{ img_detail }" alt="{ character name }" style="--vt: { character name replace spaces with dash }">
+              <div class="character-detail-image">
+                 <img src="../../assets/img/{ img }" alt="{ character name }" style="--vt: { character name replace spaces with dash }; width: 48px; height: 48px;">
+               </div>
+             <h1 class="title xlarge-heading" id="character-name">{ character name }</h1>
             </div>
-            <div style="margin-top: 2rem;" class="info">
+
+            <div style="margin-top: 2rem" class="info">
+              <div>
+                <img src="../../assets/img/{ img_detail }" alt="{ character name }">
+              </div>
               <p class="small-body"><strong>Origin:</strong> { origin }</p>
               <p class="medium-body">First appearance: { first_appear }</p>
               <p class="medium-body">{ description }</p>
